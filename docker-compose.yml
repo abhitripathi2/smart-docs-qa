@@ -1,0 +1,21 @@
+services:
+  db:
+    image: ankane/pgvector:latest
+    container_name: smartqa-postgres
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+      POSTGRES_DB: smartqa
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pguser -d smartqa"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
