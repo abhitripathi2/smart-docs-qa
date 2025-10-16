@@ -19,7 +19,7 @@ public class GeminiEmbeddingService {
 
     private final WebClient webClient;
 
-    public GeminiEmbeddingService(@Value("${AIzaSyAep7D1YTfpzuqlzQq1F6oZdFJsZjvn0tw}") String apiKey) {
+    public GeminiEmbeddingService(@Value("${gemini.api-key}") String apiKey) {
         this.webClient = WebClient.builder()
                 .baseUrl(GEMINI_URL)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

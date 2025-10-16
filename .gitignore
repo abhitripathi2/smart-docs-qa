@@ -31,6 +31,13 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+
+# Ignore any specific secrets/properties files
+api_keys.properties
+secrets.properties
+application-local.properties
+
+
 ### VS Code ###
 .vscode/
 
