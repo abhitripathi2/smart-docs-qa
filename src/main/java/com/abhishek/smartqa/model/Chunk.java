@@ -23,7 +23,7 @@ public class Chunk {
 
     // Store embedding later (pgvector column).
     // For now, keep as JSON string until we add pgvector support.
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "vector(768)")
     private String embedding;
 
     // Getters & setters

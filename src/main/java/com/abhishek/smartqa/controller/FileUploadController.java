@@ -50,8 +50,14 @@ public class FileUploadController {
             String fullText = parserService.extractText(file);
             List<ChunkingService.TextChunk> chunks = chunkingService.chunkText(fullText);
 
+            List<String> texts = chunks.stream()
+                    .map(ChunkingService.TextChunk::getText)
+                    .map(t -> t == null ? "" : t.trim())
+                    .filter(t -> !t.isEmpty())
+                    .map(t -> t.length() > 3000 ? t.substring(0, 3000) : t) // cap to 3000 chars
+                    .collect(Collectors.toList());
             // prepare texts for batching
-            List<String> texts = chunks.stream().map(ChunkingService.TextChunk::getText).collect(Collectors.toList());
+           // List<String> texts = chunks.stream().map(ChunkingService.TextChunk::getText).collect(Collectors.toList());
 
             // Batch embeddings (single call)
             List<List<Double>> embeddings = geminiEmbeddingService.embedBatch(texts);
